@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keep Smiling!</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+        body {
+            background-color: #fffde7; /* Kuning sangat muda */
+            text-align: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding-top: 50px;
+            overflow-x: hidden; /* Mencegah scroll horizontal karena animasi */
+        }
+
+        /* --- 1. Animasi Ikon Senyum Melompat --- */
+        @keyframes wiggleJump {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-15px) rotate(-5deg); }
+            75% { transform: translateY(-15px) rotate(5deg); }
+        }
+
+        .smile-icon {
+            font-size: 100px;
+            display: block;
+            margin: 20px auto;
+            animation: wiggleJump 2s ease-in-out infinite; /* Terus melompat */
+        }
+
+        /* --- 2. Animasi Tombol Berdenyut --- */
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 193, 7, 0.7); transform: scale(1); }
+            70% { box-shadow: 0 0 0 15px rgba(255, 193, 7, 0); transform: scale(1.05); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 193, 7, 0); transform: scale(1); }
+        }
+
+        .btn-smile {
+            background-color: #ffc107;
+            color: #fff;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.25rem;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            animation: pulse 1.5s infinite; /* Tombol berdenyut */
+        }
+
+        .btn-smile:hover {
+            background-color: #e0a800;
+        }
+
+        /* --- 3. Animasi Teks Muncul (Fade In Up) --- */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translate3d(0, 40px, 0);
+            }
+            to {
+                opacity: 1;
+                transform: translate3d(0, 0, 0);
+            }
+        }
+
+        .hidden-content {
+            display: none;
+            margin-top: 60px;
+            padding-bottom: 50px;
+        }
+
+        .animate-text {
+            animation: fadeInUp 1s ease-out forwards;
+            opacity: 0; /* Mulai dari transparan */
+        }
+
+        .del-1 { animation-delay: 0.2s; } /* Jeda sedikit */
+        .del-2 { animation-delay: 0.6s; }
+        .del-3 { animation-delay: 1s; }
+
+        .highlight {
+            color: #f57c00;
+            font-weight: bold;
+            text-transform: uppercase;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        h1 { margin-bottom: 20px; }
+
+        /* --- Style untuk Hujan Emoji --- */
+        .emoji-particle {
+            position: fixed;
+            top: -50px;
+            font-size: 2rem;
+            z-index: 9999;
+            pointer-events: none; /* Biar gak bisa diklik */
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(105vh) rotate(360deg); /* Jatuh ke bawah layar + putar */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="smile-icon">😊</div>
+        <h2 class="mb-3">Feeling down?<br><h3>(Press the button for an instant smile!)</h3></h2>
+        <button type="button" class="btn-smile shadow-lg" onClick="makeItRainAndShow()">HIT ME WITH A SMILE!</button>
+    </div>
+    
+    <div id="smileSection" class="hidden-content container">
+        <div class="animate-text del-1">
+            <h1>Your <span class="highlight">SMILE</span> makes the world brighter!</h1>       
+        </div>
+        <div class="animate-text del-2">
+                <h1>It is absolutely <span class="highlight">MAGICAL!</span></h1>
+       </div>
+       <div class="animate-text del-3">
+           <h1>Just keep on <span class="highlight">SMILING!</span> 😊✨</h1>
+       </div>
+   </div>
+
+   <script>
+       function makeItRainAndShow() {
+           // 1. Tampilkan Konten Teks
+           document.getElementById('smileSection').style.display = 'block';
+
+           // 2. Logika Hujan Emoji
+           const emojiContainer = document.body;
+           const emojis = ['😊', '😁', '✨', '💛', '🌟'];
+           const particleCount = 40; // Jumlah emoji yang jatuh
+
+           for (let i = 0; i < particleCount; i++) {
+               const createEmoji = () => {
+                   const emojiEl = document.createElement('div');
+                   emojiEl.classList.add('emoji-particle');
+                   
+                   // Acak emoji
+                   emojiEl.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+                   
+                   // Posisi horizontal acak (0% - 100% lebar layar)
+                   emojiEl.style.left = Math.random() * 100 + 'vw';
+                   
+                   // Ukuran acak (1rem - 3rem)
+                   emojiEl.style.fontSize = Math.random() * 2 + 1 + 'rem';
+                   
+                   // Durasi jatuh acak (2s - 5s) agar tidak seragam
+                   emojiEl.style.animationDuration = Math.random() * 3 + 2 + 's';
+                   
+                   // Jeda mulai acak (0s - 1s)
+                   emojiEl.style.animationDelay = Math.random() * 1 + 's';
+
+                   emojiContainer.appendChild(emojiEl);
+
+                   // Hapus elemen setelah animasi selesai agar tidak memenuhi memori
+                   setTimeout(() => {
+                       emojiEl.remove();
+                   }, 6000); // Harus lebih lama dari duration + delay terlama
+               };
+               
+               // Jalankan fungsi buat emoji
+               createEmoji();
+           }
+
+           // 3. Scroll halus ke bawah (OPSIONAL, jika teksnya panjang)
+           /*
+           setTimeout(() => {
+               window.scrollTo({
+                   top: document.body.scrollHeight,
+                   behavior: 'smooth'
+               });
+           }, 200);
+           */
+       }
+   </script>
+</body>
+</html>

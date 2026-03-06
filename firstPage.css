@@ -1,0 +1,88 @@
+/* 1. Pastikan gambar tidak kaku ukurannya */
+#image {
+    width: 100%;       /* Default lebar mengikuti container */
+    max-width: 400px;  /* Batas maksimal di desktop agar tidak kegedean */
+    height: auto;      /* Menjaga proporsi agar tidak penyok */
+}
+
+/* 2. Media Query khusus untuk Mobile (Layar di bawah 600px) */
+@media (max-width: 600px) {
+    #image {
+        max-width: 250px; /* Gambar mengecil di HP */
+    }
+
+    .btn {
+        width: 80%;       /* Tombol sedikit lebih lebar agar mudah diklik di HP */
+        font-size: 1rem;  /* Ukuran font tombol dikecilkan sedikit */
+        top: calc(100% - 8rem); /* Geser posisi tombol dikit biar gak nabrak */
+    }
+
+    .container {
+        padding: 10px;
+    }
+}
+
+/* --- LANJUTAN CSS ASLI KAMU (Gak ada yang diubah) --- */
+body {
+    padding: 2rem;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    background-image: url('Pages/Assets/bg.gif'); 
+    background-size: cover;
+}
+
+body.hovered {
+    /* background-image: linear-gradient(to left bottom, #fea0ff, #dac9fe); */
+    background-image: url('Pages/Assets/wall6.gif');
+    background-position: 0%;
+    background-size: auto;
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 600px;
+    margin-inline: auto;
+    filter: drop-shadow(5px 5px 20px rgba(0, 0, 0, 0.2));
+}
+
+.btn{
+    position: absolute;
+    top: calc(100% - 10rem);
+    min-width: 120px;
+    padding: 0.75rem 1rem;
+    font-size: 1.25rem;
+    outline: none;
+    border: none;
+    background-color: #455566;
+    border-radius: 5px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: 0.3s;
+    color: #fff;
+}
+
+
+.btn:hover span {
+    display:none
+}
+  
+.btn:hover:before {
+    content:"Hiii Cutiee! (Click Here) \1F49E ";
+}
+
+.watermark {
+    opacity: 0.5;
+    color: rgb(238, 203, 203);
+    position: fixed;
+    top: 95%;
+    left: 47%;
+}
+
+a{
+    text-decoration: none;
+    color: rgb(238, 203, 203);
+}
